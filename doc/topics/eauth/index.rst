@@ -68,6 +68,23 @@ modules <all-salt.runners>` the following ``@`` syntax must be used:
     :mod:`saltutil.findjob <salt.modules.saltutil.find_job>`. Be aware
     that this could inadvertently expose some data such as minion IDs.
 
+To allow access to 'local_subset' netapi client interface, user must be given
+an access to execute 'sys.list_functions'.   
+
+.. code-block:: yaml
+
+    external_auth:
+      pam:
+        thatch:
+          - 'web*':
+            - test.*
+            - network.*
+            - sys.list_functions
+
+Master executes 'sys.list_functions' on all targeted minions prior to selecting a subset
+in order to validate that the actual function is available on all minions. 
+
+
 Matching syntax
 ---------------
 
